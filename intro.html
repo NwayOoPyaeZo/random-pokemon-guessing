@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pokédex Intro</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="intro-container">
+    <!-- Stylized Pokédex Logo -->
+    <h1 class="pokedex-logo">Pokédex</h1>
+    <p class="subtitle">(Who's That Pokémon?)</p>
+
+    <!-- Main Start Button -->
+    <button id="startGameBtn">START GAME</button>
+
+    <!-- Optional Continue / New Game -->
+    <div class="sub-buttons">
+      <button class="smallBtn">Continue</button>
+      <button class="smallBtn">New Game</button>
+    </div>
+
+    <!-- Footer Section -->
+    <div class="intro-footer">
+      <div class="footer-left">⚙️ Settings</div>
+      <div class="footer-center">📅 Events</div>
+      <div class="footer-right">Version v1.0.0</div>
+    </div>
+
+    <!-- Studio Credit -->
+    <p class="studio-credit">Created by LunaEdge Studio</p>
+  </div>
+
+  <audio id="whosThatAudio" src="whosthatpokemon.mp3"></audio>
+
+  <script>
+    const startAudio = document.getElementById('whosThatAudio');
+    const startBtn = document.getElementById('startGameBtn');
+
+    // Allow audio on first interaction
+    document.body.addEventListener('click', () => {
+      startAudio.currentTime = 0;
+      startAudio.play();
+    }, { once: true });
+
+    // Go to main Pokédex
+    startBtn.addEventListener('click', () => {
+      window.location.href = 'index.html';
+    });
+  </script>
+</body>
+</html>
