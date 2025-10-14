@@ -1,59 +1,501 @@
-  /* Reset some default spacing for consistency */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
+/* ===========================
+   main styles
+   =========================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-    /* Style the header area */
-    header {
-      background-color: #0077cc;
-      color: white;
-      text-align: center;
-      padding: 20px;
-    }
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-family: "Poppins", sans-serif;
+  background: radial-gradient(circle at top, #2b2b2b 0%, #121212 100%);
+  color: #fff;
+  padding: 20px;
+  overflow-x: hidden;
+}
 
-    /* Main content area spacing */
-    main {
-      padding: 20px;
-    }
+/* Main container */
+#pokedex {
+  display: flex;
+  width: 100%;
+  height: 95vh;
+  border-radius: 20px;
+  overflow: hidden;
+  background: linear-gradient(145deg, #2b0000, #1a0000);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7),
+    inset 0 0 20px rgba(255, 255, 255, 0.1);
+  margin: 50px auto;
+  border: 3px solid #111;
+  position: relative;
+}
 
-    /* A simple card style for sections */
-    .card {
-      background-color: #f9f9f9;
-      border-radius: 8px;
-      padding: 20px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      transition: transform 0.3s;
-    }
+/* Left screen */
+#left {
+  flex: 1;
+  background: linear-gradient(145deg, #c20000, #780000);
+  border-right: 4px solid #111;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+}
 
-    /* Add a hover effect to make it interactive */
-    .card:hover {
-      transform: scale(1.02);
-    }
+/* Decorative bolts */
+#left::before,
+#right::before {
+  content: "";
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: radial-gradient(#fff, #aaa);
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+}
+#left::after,
+#right::after {
+  content: "";
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: radial-gradient(#fff, #aaa);
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+}
 
-    /* Style the button */
-    button {
-      background-color: #0077cc;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
+#leftTitle {
+  position: absolute;
+  top: 40px;
+  width: 100%;
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+  color: #ffde00; /* classic yellow */
+  text-shadow: 1px 1px 0 #000, 2px 2px 0 #000, 3px 3px 0 #000; /* thick shadow for retro game feel */
+  font-family: "Press Start 2P", "Courier New", monospace;
+  letter-spacing: 1px;
+  z-index: 10;
+  user-select: none;
+  animation: flicker 1.5s infinite; /* optional glow/flicker effect */
+}
 
-    button:hover {
-      background-color: #005fa3;
-    }
+/* Display screen */
+#screen {
+  background: radial-gradient(circle at top, #d9d9d9 0%, #9c9c9c 100%);
+  border-radius: 15px;
+  width: 500px;
+  height: 500px;
+  padding: 10px;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.4),
+    0 2px 10px rgba(255, 255, 255, 0.1);
+  position: relative;
+  border: 3px solid #666;
+}
 
-    /* Footer styling */
-    footer {
-      text-align: center;
-      background-color: #333;
-      color: white;
-      padding: 10px;
-      font-size: 0.9rem;
-    }
+/* Pokémon image container */
+#picture {
+  width: 100%; 
+  height: 477px; /* slightly taller to match bigger left panel */
+  background: #fff;
+  border: 4px solid #444;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Pokémon image */
+#pokemonImg {
+  height: 400px;
+  width: 400px;
+  transition: filter 1s, transform 1s;
+  filter: brightness(0) saturate(100%);
+  max-width: 100%; /* ensures it scales with container */
+  max-height: 100%; /* keeps it within container height */
+}
+
+/* Revealed state */
+#pokemonImg.revealed {
+  height: 400px;
+  width: 400px;
+  filter: brightness(1.1);
+  transform: scale(1.1);
+}
+
+/* Right screen */
+#right {
+  flex: 1;
+  background: linear-gradient(145deg, #e0e0e0, #bcbcbc);
+  border-left: 4px solid #111;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 25px;
+  position: relative;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+/* LED indicators */
+#right::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #0f0 0%, #060 80%);
+  box-shadow: 0 0 10px #0f0;
+  position: absolute;
+  top: 10px;
+  right: 20px;
+}
+
+/* Guess input */
+#small-screen {
+  width: 80%;
+  background: linear-gradient(145deg, #000, #111);
+  padding: 8px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.2);
+}
+
+#guess {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  background: #111;
+  border: none;
+  color: #fff;
+  text-align: center;
+  border-radius: 4px;
+  text-transform: capitalize;
+}
+
+#guess:focus {
+  outline: none;
+  box-shadow: 0 0 10px #ffcb05 inset;
+}
+
+/* Stats screen */
+#stats {
+  background: linear-gradient(145deg, #3ab8f0, #1e8ccc);
+  border: 3px solid #1c6ea4;
+  color: #000;
+  border-radius: 12px;
+  width: 80%;
+  padding: 15px;
+  font-family: "Courier New", monospace;
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.3),
+    0 2px 6px rgba(255, 255, 255, 0.2);
+  min-height: 120px;
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.04) 0px,
+    rgba(255, 255, 255, 0.04) 2px,
+    transparent 2px,
+    transparent 4px
+  );
+}
+
+#result {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
+  color: #111;
+  text-shadow: 0 1px #fff;
+}
+
+#details {
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1.4;
+  color: #000;
+}
+
+/* =====================
+   Pokédex Stats & Lore
+   ===================== */
+#pokedexStats {
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1.5;
+  color: #000;
+  margin-bottom: 6px;
+}
+
+#pokedexLore {
+  font-size: 13px;
+  font-style: italic;
+  line-height: 1.4;
+  color: #111;
+  text-shadow: 0 1px 1px #fff;
+  background: linear-gradient(145deg, #cce7ff, #a1d4f5);
+  padding: 6px 8px;
+  border-radius: 8px;
+  border: 1px solid #0b325d;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2);
+  max-height: 70px;
+  overflow-y: auto;
+}
+#pokedexLore:hover {
+  box-shadow: 0 0 10px rgba(58, 184, 240, 0.6);
+  transition: all 0.3s ease;
+}
+
+/* Buttons */
+#blueButtons1 {
+  margin-top: 25px;
+  display: flex;
+  gap: 12px;
+}
+
+button.blueButton {
+  background: linear-gradient(to bottom, #007bff, #0048a3);
+  border: 2px solid #002c66;
+  border-radius: 6px;
+  padding: 8px 16px;
+  color: #fff;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 0 #002c66;
+}
+
+button.blueButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px rgba(0, 118, 255, 0.4);
+}
+
+button.blueButton:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 0 #002c66 inset;
+}
+
+/* Score and Timer Boxes */
+#yellowBox1,
+#yellowBox2 {
+  background: linear-gradient(145deg, #f44336, #c62828);
+  border-radius: 10px;
+  border: 2px solid #fff;
+  padding: 10px;
+  width: 160px;
+  text-align: center;
+  font-weight: bold;
+  color: #fff;
+  margin-top: 20px;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.4),
+    0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+#score {
+  color: #ffcb05;
+  font-size: 14px;
+  text-shadow: 0 1px 2px #000;
+}
+
+#timer {
+  color: #ff4444;
+  font-size: 14px;
+  text-shadow: 0 1px 2px #000;
+}
+
+/* Responsive */
+@media (max-width: 850px) {
+  #pokedex {
+    flex-direction: column;
+    width: 95%;
+    height: auto;
+  }
+
+  #left,
+  #right {
+    border: none;
+    width: 100%;
+    height: auto;
+  }
+
+  #screen {
+    width: 90%;
+  }
+
+  #small-screen,
+  #stats {
+    width: 90%;
+  }
+
+  #blueButtons1 {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+/* Flicker animation for title */
+@keyframes flicker {
+  0%,
+  19%,
+  21%,
+  23%,
+  25%,
+  54%,
+  56%,
+  100% {
+    opacity: 1;
+  }
+  20%,
+  22%,
+  24%,
+  55% {
+    opacity: 0.7;
+  }
+}
+
+/* ===========================
+   INTRO PAGE / TITLE SCREEN (Unified with Pokédex theme)
+   =========================== */
+/* ===========================
+   INTRO PAGE / TITLE SCREEN (Unified with Pokédex theme)
+   =========================== */
+.intro-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  background: linear-gradient(
+    145deg,
+    #b00000,
+    #5a0000
+  ); /* closer to main Pokédex red */
+  color: #fff;
+  font-family: "Press Start 2P", "Poppins", sans-serif;
+  text-align: center;
+  overflow: hidden;
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.6);
+}
+
+/* Main Pokédex Logo */
+.pokedex-logo {
+  font-size: 34px;
+  color: #ffde00; /* match leftTitle */
+  text-shadow: 2px 2px 0 #000, 4px 4px 10px rgba(0, 0, 0, 0.7);
+  margin-bottom: 10px;
+  animation: flicker 2s infinite;
+}
+
+/* Subtitle */
+.subtitle {
+  font-size: 12px;
+  color: #fff080;
+  text-shadow: 1px 1px 0 #000;
+  margin-bottom: 40px;
+}
+
+/* Start Game Button */
+#startGameBtn {
+  background: linear-gradient(145deg, #ffcb05, #fbc02d);
+  color: #111;
+  border: 3px solid #000;
+  padding: 12px 32px;
+  border-radius: 10px;
+  font-family: "Press Start 2P", sans-serif;
+  font-size: 12px;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #7a5a00, 0 6px 12px rgba(0, 0, 0, 0.4);
+  transition: all 0.2s ease;
+}
+
+#startGameBtn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 14px rgba(255, 255, 255, 0.3), 0 4px 0 #7a5a00;
+}
+
+#startGameBtn:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #7a5a00 inset;
+}
+
+/* Continue/New Game buttons */
+.sub-buttons {
+  display: flex;
+  gap: 18px;
+  margin-top: 28px;
+}
+
+.smallBtn {
+  background: linear-gradient(145deg, #3ab8f0, #1e8ccc);
+  border: 2px solid #0b325d;
+  color: #fff;
+  font-family: "Press Start 2P", sans-serif;
+  font-size: 10px;
+  padding: 8px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #0b325d;
+  transition: all 0.2s ease;
+}
+
+.smallBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px rgba(58, 184, 240, 0.4);
+}
+
+/* Footer area */
+.intro-footer {
+  position: absolute;
+  bottom: 35px;
+  width: 75%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: #ffcb05;
+  text-shadow: 1px 1px 0 #000;
+  border-top: 2px solid rgba(255, 255, 255, 0.15);
+  padding-top: 6px;
+}
+
+.studio-credit {
+  position: absolute;
+  bottom: 12px;
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Soft fade-in effect */
+@keyframes fadeInIntro {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.intro-container,
+.pokedex-logo,
+.subtitle,
+#startGameBtn,
+.intro-footer {
+  animation: fadeInIntro 1.2s ease forwards;
+}
+/* ===========================
+   END INTRO PAGE / TITLE SCREEN
+   =========================== */
