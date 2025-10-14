@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Who's That Pokémon?</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="pokedex">
+      <!-- Left Panel -->
+      <div id="left">
+        <div id="logo"></div>
+
+        <!-- Top-right mute icon for intro sound -->
+        <div
+          id="muteIcon"
+          title="Mute/Unmute Intro Sound"
+          style="
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            width: 24px;
+            height: 24px;
+            font-size: 20px;
+            z-index: 10;
+          "
+        >
+          🔊
+        </div>
+
+        <div id="leftTitle">Who's That Pokémon?</div>
+        <!-- Pokédex decorative elements omitted for brevity -->
+        <div id="screen">
+          <div id="topPicture"></div>
+          <div id="picture">
+            <img id="pokemonImg" src="" alt="Pokemon" height="170" />
+          </div>
+          <div id="speakers"></div>
+        </div>
+      </div>
+
+      <!-- Right Panel -->
+      <div id="right">
+        <div id="small-screen">
+          <input type="text" id="guess" placeholder="Type Pokémon name" />
+        </div>
+        <div id="stats">
+          <p id="result"></p>
+          <div id="details">
+            <p id="pokedexStats"></p>
+            <p id="pokedexLore"></p>
+          </div>
+        </div>
+
+        <div id="blueButtons1">
+          <button class="blueButton" id="checkBtn">Check</button>
+          <button class="blueButton" id="nextBtn">Next</button>
+          <button class="blueButton" id="resetBtn">Reset</button>
+          <button class="blueButton" id="toggleBGM">Toggle BGM</button>
+        </div>
+
+        <div id="yellowBox1"><p id="score">Score: 0 | Streak: 0</p></div>
+        <div id="yellowBox2"><p id="timer">Time: 30s</p></div>
+
+        <div style="margin-top: 10px; text-align: center">
+          <button class="blueButton" id="backBtn">Back</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sounds -->
+    <audio id="correctSound" src="correct.mp3"></audio>
+    <audio id="wrongSound" src="wrong.mp3"></audio>
+    <audio id="themeAudio" src="sound/theme.mp3" loop></audio>
+    <audio id="whosThatAudio" src="sound/who's_that_pokemon.mp3"></audio>
+    <audio id="pokeCry"></audio>
+
+    <script src="script.js"></script>
+  </body>
+</html>
