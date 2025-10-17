@@ -4,35 +4,80 @@ let score = 0;
 let streak = 0;
 let timer = 30;
 let timerInterval;
+let sfxMuted = false;
 
 // Audio elements
 const correctSound = document.getElementById("correctSound");
 const wrongSound = document.getElementById("wrongSound");
 const pokeCry = document.getElementById("pokeCry");
 const whosThatAudio = document.getElementById("whosThatAudio");
-const bgMusic = document.getElementById("themeAudio"); // persistent BGM
-bgMusic.volume = 0.3;
+const bgMusic = document.getElementById("themeAudio"); 
+// Initialize audio settings from localStorage if present
+try {
+  const savedBgVolume = localStorage.getItem("bgMusicVolume");
+  const savedSfxVolume = localStorage.getItem("sfxVolume");
+  const savedBgMuted = localStorage.getItem("bgMusicMuted");
+  const savedSfxMuted = localStorage.getItem("sfxMuted");
+
+  if (bgMusic) {
+    bgMusic.volume = savedBgVolume !== null ? Number(savedBgVolume) : 0.3;
+    if (savedBgMuted !== null) bgMusic.muted = (savedBgMuted === 'true');
+  }
+
+  const sfxVolumeVal = savedSfxVolume !== null ? Number(savedSfxVolume) : 1;
+  if (whosThatAudio) whosThatAudio.volume = sfxVolumeVal;
+  if (correctSound) correctSound.volume = sfxVolumeVal;
+  if (wrongSound) wrongSound.volume = sfxVolumeVal;
+  if (pokeCry) pokeCry.volume = sfxVolumeVal;
+
+  if (savedSfxMuted !== null) {
+    const mute = (savedSfxMuted === 'true');
+    if (whosThatAudio) whosThatAudio.muted = mute;
+    if (correctSound) correctSound.muted = mute;
+    if (wrongSound) wrongSound.muted = mute;
+    if (pokeCry) pokeCry.muted = mute;
+    sfxMuted = mute;
+  }
+} catch (e) {
+  console.warn('Could not load audio settings from localStorage', e);
+}
 
 // ===== Intro sound mute icon =====
-let introMuted = false;
 const muteIcon = document.getElementById("muteIcon");
+function updateMuteIcon() {
+  if (!muteIcon) return;
+  muteIcon.innerText = sfxMuted ? "🔇" : "🔊";
+}
 if (muteIcon) {
+  // initialize icon
+  updateMuteIcon();
   muteIcon.addEventListener("click", () => {
-    introMuted = !introMuted;
-    if (introMuted) {
-      whosThatAudio.pause();
-      muteIcon.innerText = "🔇";
+    sfxMuted = !sfxMuted;
+    // apply to all SFX elements
+    [whosThatAudio, correctSound, wrongSound, pokeCry].forEach((a) => {
+      if (a) a.muted = sfxMuted;
+    });
+    try { localStorage.setItem("sfxMuted", sfxMuted); } catch (e) {}
+    // update settings checkbox if present
+    const toggleSound = document.getElementById("toggleSound");
+    if (toggleSound) toggleSound.checked = !sfxMuted;
+    updateMuteIcon();
+
+    if (sfxMuted) {
+      if (whosThatAudio) whosThatAudio.pause();
     } else {
-      whosThatAudio.play().catch(() => {});
-      muteIcon.innerText = "🔊";
+      if (whosThatAudio) whosThatAudio.currentTime = 0;
+      if (whosThatAudio) whosThatAudio.play().catch(() => {});
     }
   });
 }
 
 function playIntroSound() {
-  if (!introMuted) {
-    whosThatAudio.currentTime = 0;
-    whosThatAudio.play().catch(() => {});
+  if (!sfxMuted) {
+    if (whosThatAudio) {
+      whosThatAudio.currentTime = 0;
+      whosThatAudio.play().catch(() => {});
+    }
   }
 }
 
