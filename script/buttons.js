@@ -58,6 +58,14 @@ resetBtn?.addEventListener("click", () => {
   pickPokemon();
 });
 
+// Go to About page
+const aboutBtn = document.querySelector(".footer-about");
+if (aboutBtn) {
+  aboutBtn.addEventListener("click", () => {
+    window.location.href = "about.html";
+  });
+}
+
 // Go back to home
 document.getElementById("backBtn")?.addEventListener("click", () => {
   window.location.href = "index.html";

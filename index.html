@@ -1,46 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="description" content="Who's That Pokémon? - A fun guessing game for Pokémon fans!" />
-  <meta name="author" content="LunaEdge Studio" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta property="og:title" content="Who's That Pokémon?" />
-  <meta property="og:description" content="Test your Pokémon knowledge in this fun guessing game!" />
-  <meta property="og:image" content="img/og-pokemon.png" />
-  <meta property="og:type" content="website" />
-  <title>Pokédex Intro</title>
-  <link rel="icon" type="image/svg+xml" href="img/favicon.svg"/>
-  <link rel="preload" href="style.css" as="style" />
-  <link rel="preload" href="script/script.js" as="script" />
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="style.css"/>
-</head>
-<body>
-  <div class="intro-container">
-    <h1 class="pokedex-logo">Pokédex</h1>
-    <p class="subtitle">(Who's That Pokémon?)</p>
-    <button id="startGameBtn">START GAME</button>
-    <div class="sub-buttons">
-      <button class="smallBtn">Continue</button>
-      <button class="smallBtn">New Game</button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="Who's That Pokémon? - A fun guessing game for Pokémon fans!"
+    />
+    <meta name="author" content="LunaEdge Studio" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:title" content="Who's That Pokémon?" />
+    <meta
+      property="og:description"
+      content="Test your Pokémon knowledge in this fun guessing game!"
+    />
+    <meta property="og:image" content="img/og-pokemon.png" />
+    <meta property="og:type" content="website" />
+    <title>Pokédex Intro</title>
+    <link rel="icon" type="image/svg+xml" href="img/favicon.svg" />
+    <link rel="stylesheet" href="style.css" />
+    <!-- Bootstrap Icons Free CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    />
+  </head>
+  <body>
+    <div class="intro-container">
+      <h1 class="pokedex-logo"><i class="fas fa-database"></i> Pokédex</h1>
+      <p class="subtitle">(Who's That Pokémon?)</p>
+      <button id="startGameBtn"><i class="fas fa-play"></i> START GAME</button>
+      <div class="sub-buttons">
+        <button class="smallBtn">
+          <i class="fas fa-forward"></i> Continue
+        </button>
+        <button class="smallBtn"><i class="fas fa-redo"></i> New Game</button>
+      </div>
     </div>
-  </div>
 
-  <!-- Sounds -->
-  <audio id="whosThatAudio" src="sound/whosthatpokemon.mp3"></audio>
-  <audio id="themeAudio" src="sound/theme.mp3" loop></audio>
+    <footer class="intro-footer">
+      <button class="footer-left" type="button">
+        <i class="bi bi-gear"></i> Settings
+      </button>
+      <button class="footer-center" type="button">
+        <i class="bi bi-calendar-event"></i> Events
+      </button>
+      <button class="footer-about" type="button">
+        <i class="bi bi-info-circle"></i> About
+      </button>
+      <div class="footer-right">
+        <i class="bi bi-code-slash"></i> Version v0.9.0
+      </div>
+    </footer>
 
-  <!-- Scripts -->
-  <script src="script/script.js" defer></script>
-  <script src="script/buttons.js" defer></script>
+    <!-- Settings Popup -->
+    <div id="settingsModal" class="settings-modal">
+      <div class="settings-content">
+        <span id="closeSettings" class="close-btn">&times;</span>
+        <h2><i class="fas fa-sliders-h"></i> Settings</h2>
 
+        <!-- Volume Controls -->
+        <div class="volume-control">
+          <label for="musicVolume"
+            ><i class="fas fa-music"></i> Music Volume</label
+          >
+          <input
+            type="range"
+            id="musicVolume"
+            min="0"
+            max="1"
+            step="0.01"
+            value="0.3"
+          />
+        </div>
 
-</body>
-<footer class="intro-footer">
-  <div class="footer-left">⚙️ Settings</div>
-  <div class="footer-center">📅 Events</div>
-  <div class="footer-right">Version v0.9.0</div>
-</footer>
-<p class="studio-credit">Created by LunaEdge Studio</p>
+        <div class="volume-control">
+          <label for="sfxVolume"
+            ><i class="fas fa-volume-high"></i> SFX Volume</label
+          >
+          <input
+            type="range"
+            id="sfxVolume"
+            min="0"
+            max="1"
+            step="0.01"
+            value="1"
+          />
+        </div>
+
+        <hr style="margin: 15px 0; opacity: 0.4" />
+
+        <label>
+          <input type="checkbox" id="toggleMusic" checked />
+          Background Music
+        </label>
+        <label>
+          <input type="checkbox" id="toggleSound" checked />
+          Sound Effects
+        </label>
+      </div>
+    </div>
+
+    <p class="studio-credit">Created by NwayOo</p>
+    <audio id="whosThatAudio" src="sound/who's_that_pokemon.mp3"></audio>
+    <audio id="themeAudio" src="sound/theme.mp3" loop></audio>
+
+    <script src="script/script.js" defer></script>
+    <script src="script/buttons.js" defer></script>
+    <script src="script/setting.js" defer></script>
+  </body>
 </html>
