@@ -104,7 +104,7 @@ body {
 
 /* Pokémon image container */
 #picture {
-  width: 100%; 
+  width: 100%;
   height: 477px; /* slightly taller to match bigger left panel */
   background: #fff;
   border: 4px solid #444;
@@ -124,6 +124,18 @@ body {
   filter: brightness(0) saturate(100%);
   max-width: 100%; /* ensures it scales with container */
   max-height: 100%; /* keeps it within container height */
+}
+
+/* Mute button */
+#muteIcon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  font-size: 20px;
+  z-index: 10;
 }
 
 /* Revealed state */

@@ -148,56 +148,24 @@ function showPokemonDetails(revealed = false) {
   }
 }
 
-// ===== Reveal Pokémon + Cry =====
-function revealPokemon(correct = false, timeUp = false) {
+/// ===== Reveal Pokémon =====
+function revealPokemon(correct = false) {
   const img = document.getElementById("pokemonImg");
-  img.classList.add("revealed");
+  img.style.transition = "filter 1s, transform 1s";
   img.style.filter = "brightness(1)";
   img.style.transform = "scale(1.1)";
 
   if (correct) correctSound.play();
-  else wrongSound.play();
 
-  showPokemonDetails(true);
-
-  pokeCry.pause();
-  pokeCry.currentTime = 0;
-  pokeCry.src = `https://play.pokemoncries.vercel.app/${currentPokemon.id}.wav`;
-  pokeCry.load();
-  pokeCry.play().catch((err) => console.log(`Cry failed: ${err}`));
+  const details = document.getElementById("details");
+  details.innerHTML = `
+    <strong>Name:</strong> ${currentPokemon.name}<br>
+    <strong>Type:</strong> ${currentPokemon.type.join(", ")}<br>
+    <strong>Height:</strong> ${currentPokemon.height} m<br>
+    <strong>Weight:</strong> ${currentPokemon.weight} kg<br>
+    <strong>ID:</strong> ${currentPokemon.id}
+  `;
 }
-
-// ===== Event listeners =====
-document.getElementById("checkBtn")?.addEventListener("click", () => {
-  const guess = document.getElementById("guess").value.trim().toLowerCase();
-  if (!currentPokemon || guess === "") return;
-
-  clearInterval(timerInterval);
-  if (guess === currentPokemon.name) {
-    score++;
-    streak++;
-    document.getElementById("result").innerText = "Correct!";
-    revealPokemon(true);
-  } else {
-    streak = 0;
-    document.getElementById(
-      "result"
-    ).innerText = `Wrong! It was ${currentPokemon.name}`;
-    revealPokemon(false);
-  }
-  updateScore();
-});
-
-document.getElementById("nextBtn")?.addEventListener("click", pickPokemon);
-document.getElementById("resetBtn")?.addEventListener("click", () => {
-  score = 0;
-  streak = 0;
-  updateScore();
-  pickPokemon();
-});
-document.getElementById("backBtn")?.addEventListener("click", () => {
-  window.location.href = "index.html";
-});
 
 // ===== Initialize =====
 if (document.getElementById("pokedex")) {

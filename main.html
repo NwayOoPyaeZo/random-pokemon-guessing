@@ -2,8 +2,21 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="Who's That Pokémon? - A fun guessing game for Pokémon fans!"
+    />
+    <meta name="author" content="LunaEdge Studio" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:title" content="Who's That Pokémon?" />
+    <meta
+      property="og:description"
+      content="Test your Pokémon knowledge in this fun guessing game!"
+    />
+    <meta property="og:image" content="images/og-pokemon.png" />
+    <meta property="og:type" content="website" />
     <title>Who's That Pokémon?</title>
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
     <link rel="stylesheet" href="style.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
@@ -16,26 +29,8 @@
       <div id="left">
         <div id="logo"></div>
 
-        <!-- Top-right mute icon for intro sound -->
-        <div
-          id="muteIcon"
-          title="Mute/Unmute Intro Sound"
-          style="
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            cursor: pointer;
-            width: 24px;
-            height: 24px;
-            font-size: 20px;
-            z-index: 10;
-          "
-        >
-          🔊
-        </div>
-
+        <div id="muteIcon" title="Mute/Unmute Intro Sound">🔊</div>
         <div id="leftTitle">Who's That Pokémon?</div>
-        <!-- Pokédex decorative elements omitted for brevity -->
         <div id="screen">
           <div id="topPicture"></div>
           <div id="picture">
@@ -81,6 +76,7 @@
     <audio id="whosThatAudio" src="sound/who's_that_pokemon.mp3"></audio>
     <audio id="pokeCry"></audio>
 
-    <script src="script.js"></script>
+    <script src="script/script.js"></script>
+    <script src="script/buttons.js"></script>
   </body>
 </html>
